@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>School project</title>
+<link href="/images/logo.png" rel="icon"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://kit.fontawesome.com/a076d05399.js'
+	crossorigin='anonymous'></script>
+</head>
+<body>
+
+	<!-- Navbar (sit on top) -->
+	<div class="w3-top">
+		<div class="w3-bar w3-white w3-card" id="myNavbar">
+			<a href="/" class="w3-bar-item w3-button w3-wide">HOME</a>
+			<!-- Right-sided navbar links -->
+			<div class="w3-right w3-hide-small">
+				<a href="#list" class="w3-bar-item w3-button"><i
+					class="fa fa-book"></i>LIST</a> <a href="#create"
+					class="w3-bar-item w3-button"><i class="fas fa-pencil-alt"></i>
+					CREATE</a> <a href="#update" class="w3-bar-item w3-button"><i
+					class="fas fa-book-reader"></i> UPDATE</a> <a href="#delete"
+					class="w3-bar-item w3-button"><i class="fas fa-trash-alt"></i>
+					DELETE</a> <a href="#search" class="w3-bar-item w3-button"><i
+					class="fas fa-search"></i> SEARCH</a>
+			</div>
+			<!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+			<a href="javascript:void(0)"
+				class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+				onclick="w3_open()"> <i class="fa fa-bars"></i>
+			</a>
+		</div>
+	</div>
+	<br>
+	<br>
+	<!-- table TEACHERS -->
+	<div class="w3-content w3-padding-large w3-margin-top" id="list">
+		<div
+			class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top"
+			id="contact">
+			<h3 class="w3-center">TEACHERS</h3>
+			<hr>
+			<table border="2" class="w3-table-all w3-hoverable w3-centered" >
+				<tr class="w3-dark-grey">
+					<th>Id</th>
+					<th>Name</th>
+					<th>Last Name</th>
+				</tr>
+				<tr th:each="teacher: ${teachers}">
+					<!-- 					<td th:text="${teacher.id}" /> -->
+					<td><a
+						th:href="@{'/teacher/details'(teacherId=${teacher.id})}"
+						th:text="${teacher.id}"></a>
+					</td>
+					<td th:text="${teacher.name}" />
+					<td th:text="${teacher.lastname}" />
+				</tr>
+			</table>
+		</div>
+		
+		<div th:if="${param.message}" class="w3-light-gray w3-padding-large w3-padding-32 w3-margin-top w3-animate-zoom w3-center"
+				id="messages">
+	            	Invalid id of the user
+	     </div>
+
+		<!-- Create -->
+		<br>
+		<hr size="8px" color="black" />
+		<div
+			class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top"
+			id="create">
+			<h3 class="w3-center">Create Teacher</h3>
+			<form th:action="@{/teacher/create}" th:object="${teacherDto}"
+				method="post">
+				<div class="w3-section">
+					<label>Name</label> <input class="w3-input w3-border" type="text"
+						th:field="*{name}">
+				</div>
+				<div class="w3-section">
+					<label>Last Name</label> <input class="w3-input w3-border"
+						type="text" th:field="*{lastname}"> <br>
+				</div>
+				<div class="w3-section">
+					<label>Username</label> <input class="w3-input w3-border"
+						type="text" th:field="*{username}"> <br>
+				</div>
+				<div class="w3-section">
+					<label>Email</label> <input class="w3-input w3-border"
+						type="email" th:field="*{email}"> <br>
+				</div>
+				<div class="w3-section">
+					<label>Password</label> <input class="w3-input w3-border"
+						type="password" th:field="*{password}"> <br>
+				</div>
+				<button type="submit" class="w3-button w3-block w3-dark-grey">Send</button>
+			</form>
+			<br>
+		</div>
+
+		<!-- Update -->
+		<br>
+		<hr size="8px" color="black" />
+		<div
+			class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top"
+			id="update">
+			<h3 class="w3-center">Update Teacher</h3>
+			<form th:action="@{/teacher/update}" th:object="${teacherDto}"
+				method="post">
+				<div class="w3-section">
+					<label>Id</label> <input class="w3-input w3-border" type="text"
+						th:field="*{id}">
+				</div>
+				<div class="w3-section">
+					<label>Name</label> <input class="w3-input w3-border" type="text"
+						th:field="*{name}">
+				</div>
+				<div class="w3-section">
+					<label>Last Name</label> <input class="w3-input w3-border"
+						type="text" th:field="*{lastname}"> <br>
+				</div>
+				<button type="submit" class="w3-button w3-block w3-dark-grey">Send</button>
+			</form>
+			<br>
+		</div>
+
+		<!-- Delete -->
+		<br>
+		<hr size="8px" color="black" />
+		<div
+			class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top"
+			id="delete">
+			<h3 class="w3-center">Delete Teacher</h3>
+			<form th:action="@{/teacher/delete}" th:object="${teacherDto}"
+				method="post">
+				<div class="w3-section">
+					<label>Id</label> <input class="w3-input w3-border" type="text"
+						th:field="*{id}">
+				</div>
+				<button type="submit" class="w3-button w3-block w3-dark-grey">Send</button>
+			</form>
+			<br>
+		</div>
+
+		<!-- Find -->
+		<br>
+		<hr size="8px" color="black" />
+		<div
+			class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top"
+			id="search">
+			<h3 class="w3-center">Search Teacher</h3>
+			<form th:action="@{/teacher/find}" th:object="${teacherDto}"
+				method="post">
+				<div class="w3-section">
+					<label>Id</label> <input class="w3-input w3-border" type="text"
+						th:field="*{id}">
+				</div>
+				<div class="w3-section">
+					<label>Name</label> <input class="w3-input w3-border" type="text"
+						th:field="*{name}">
+				</div>
+				<div class="w3-section">
+					<label>Last Name</label> <input class="w3-input w3-border" type="text"
+						th:field="*{lastname}">
+				</div>
+				<button type="submit" class="w3-button w3-block w3-dark-grey">Send</button>
+			</form>
+			<br>
+		</div>
+
+	</div>
+	<br>
+	<br>
+
+	<!-- Footer -->
+	<footer class="w3-center w3-black w3-padding-64">
+		<a href="#list" class="w3-button w3-light-grey"><i
+			class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+		<div class="w3-xlarge w3-section">
+			<i class="fa fa-facebook-official w3-hover-opacity"></i> <i
+				class="fa fa-instagram w3-hover-opacity"></i> <i
+				class="fa fa-snapchat w3-hover-opacity"></i> <i
+				class="fa fa-pinterest-p w3-hover-opacity"></i> <i
+				class="fa fa-twitter w3-hover-opacity"></i> <i
+				class="fa fa-linkedin w3-hover-opacity"></i>
+		</div>
+		<p>
+			More about epam <a href="https://www.epam.com/" title="epam"
+				target="_blank" class="w3-hover-text-green">here</a>
+		</p>
+	</footer>
+
+</body>
+</html>

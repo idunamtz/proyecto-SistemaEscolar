@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<title>School project</title>
+<link href="images/logo.png" rel="icon" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Raleway">
+<script src='https://kit.fontawesome.com/a076d05399.js'
+	crossorigin='anonymous'></script>
+</head>
+<body>
+
+	<!-- Header -->
+	<header class="w3-display-container w3-content w3-center"
+		style="max-width: 1500px" id="pic">
+		<img class="w3-image" src="/images/writing.jpg" alt="Me" width="1800"
+			height="600">
+		<div
+			class="w3-display-middle w3-padding-large w3-border w3-wide w3-text-light-grey w3-center">
+			<h1 class="w3-hide-medium w3-hide-small w3-xxxlarge">SCHOOL</h1>
+			<h5 class="w3-hide-large" style="white-space: nowrap">SCHOOL</h5>
+			<h3 class="w3-hide-medium w3-hide-small">SYSTEM</h3>
+		</div>
+
+		<!-- Navbar (placed at the bottom of the header image) -->
+		<div
+			class="w3-bar w3-light-grey w3-round w3-display-bottommiddle w3-hide-small"
+			style="bottom: -16px">
+			<h1 th:inline="text">Hello
+				[[${#httpServletRequest.userPrincipal.principal.name} + ' ' + ${#httpServletRequest.userPrincipal.principal.lastname}]]!
+			</h1>
+			<a href="/teacher/list" class="w3-bar-item w3-button"> TEACHERS</a> <a
+				href="/student/list" class="w3-bar-item w3-button"> STUDENTS</a> <a
+				href="/lesson/list" class="w3-bar-item w3-button"> LESSONS</a>
+		</div>
+	</header>
+
+
+	<div class="w3-content w3-padding-large w3-margin-top" id="portfolio">
+
+		<!-- Contact -->
+		<div
+			class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top">
+			<h3 class="w3-center">PURPOSE</h3>
+			<hr>
+			<p class="w3-center">This web page is a means of keeping track
+				of teachers, their students, as well as lessons to learn.</p>
+			<p class="w3-center">You can create new records, modify them,
+				delete them or search for a specific one.</p>
+			<br> <br>
+			<h6 class="w3-center">WELCOME!</h6>
+			<br>
+			<form th:action="@{/logout}" method="post">
+<!-- 				<input type="submit" value="Sign Out" /> -->
+				<button type="submit" class="w3-button w3-dark-grey ">Sign out</button>
+			</form>
+		</div>
+
+		<!-- End page content -->
+	</div>
+	<br>
+	<br>
+
+	<!-- Footer -->
+	<footer class="w3-center w3-black w3-padding-64">
+		<a href="#pic" class="w3-button w3-light-grey"><i
+			class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+		<div class="w3-xlarge w3-section">
+			<i class="fa fa-facebook-official w3-hover-opacity"></i> <i
+				class="fa fa-instagram w3-hover-opacity"></i> <i
+				class="fa fa-snapchat w3-hover-opacity"></i> <i
+				class="fa fa-pinterest-p w3-hover-opacity"></i> <i
+				class="fa fa-twitter w3-hover-opacity"></i> <i
+				class="fa fa-linkedin w3-hover-opacity"></i>
+		</div>
+		<p>
+			More about epam <a href="https://www.epam.com/" title="W3.CSS"
+				target="_blank" class="w3-hover-text-green">here</a>
+		</p>
+	</footer>
+</body>
+</html>
